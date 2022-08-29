@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container my-3">
+    <div class="container my-3">
+        <div class="card my-2">
+            <div class="card-body">
+                <form action="{{url_for('home')}}" method="POST">
+                <div class="form-group">
+                    <input  class="form-control form-control-lg" type="text" name="input_url" required value="{{input_url}}"  placeholder="Paste Url">
+                </div>
+                <button class="btn btn-outline-success btn-lg my-2">Shorten Url</button>
+            </form>
+            <div class="form-group">
+                {% if short_url %}
+                <input  class="form-control form-control-lg" type="text" name="short_url" value="{{short_url}}" required  placeholder="Paste Url">
+                {% else %}
+                <input  class="form-control form-control-lg form-control-disabled" type="text" name="short_url" value="{{short_url}}"  placeholder="Shortened Url" disabled>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
