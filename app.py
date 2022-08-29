@@ -14,14 +14,13 @@ def home():
     if request.method == "POST":
         input_url = request.form['input_url']
         if input_url == None or len(input_url) < 0:
-            print("Not Ok")
+        
             return redirect("/")
         short_url = ''.join(random.choices(string.ascii_uppercase +
                              string.digits, k=8))
         with db.connect("urls.db") as conn :
             cursor = conn.cursor()
-            if cursor.execute("INSERT INTO  urls (input_url, short_url) VALUES(?,?)",(input_url, short_url)):
-                print("Ok")
+            cursor.execute("INSERT INTO  urls (input_url, short_url) VALUES(?,?)",(input_url, short_url))
             conn.commit()
             flash("Successfully Shortened the following URL")
         conn.close()
@@ -39,6 +38,7 @@ def redirect_url(short_url):
                 data = cursor.fetchone()
 
                 return redirect(data[1],code=302 )
+        conn.close()
     else:
         return redirect("/")
                 
